@@ -46,9 +46,8 @@ turing-nexotech/
 
 ## 1. Seguridad antes de comenzar
 
-La variable `SUPABASE_SECRET_KEY` es privada y no debe incluirse en GitHub, React, archivos públicos ni capturas. Si una clave secreta fue compartida en un chat o mensaje, revócala en Supabase y genera una nueva antes del despliegue.
+La variables de Supabase son privadas y no se incluyen en GitHub, React, archivos públicos ni capturas.
 
-La clave publicable sí puede utilizarse del lado cliente cuando existen políticas RLS, pero este proyecto mantiene todas las operaciones de datos detrás del backend.
 
 ## 2. Crear las tablas en Supabase
 

@@ -1,6 +1,76 @@
 import { useEffect, useState } from 'react';
+import { Skeleton } from 'boneyard-js/react';
 import { api } from '../services/api.js';
 import ResourceCard from './ResourceCard.jsx';
+
+const catalogFixtureResources = [
+  {
+    id: 'fixture-react',
+    title: 'React desde cero',
+    description: 'Componentes, estado, eventos y consumo de servicios REST con un proyecto práctico.',
+    level: 'Inicial',
+    duration_hours: 18,
+    image_url: '/images/react.svg',
+    featured: true,
+    category: { name: 'Desarrollo web' },
+  },
+  {
+    id: 'fixture-api',
+    title: 'API REST con Node.js',
+    description: 'Diseña una API mantenible con Express, validación, seguridad, autenticación y Supabase.',
+    level: 'Intermedio',
+    duration_hours: 24,
+    image_url: '/images/node.svg',
+    featured: true,
+    category: { name: 'Desarrollo web' },
+  },
+  {
+    id: 'fixture-sql',
+    title: 'SQL y modelado relacional',
+    description: 'Aprende consultas, relaciones, índices y normalización hasta tercera forma normal.',
+    level: 'Inicial',
+    duration_hours: 16,
+    image_url: '/images/sql.svg',
+    featured: false,
+    category: { name: 'Datos' },
+  },
+  {
+    id: 'fixture-python',
+    title: 'Analítica con Python',
+    description: 'Procesa datos, automatiza tareas y crea reportes reproducibles con Python.',
+    level: 'Intermedio',
+    duration_hours: 22,
+    image_url: '/images/python.svg',
+    featured: false,
+    category: { name: 'Datos' },
+  },
+  {
+    id: 'fixture-cloud',
+    title: 'Fundamentos de nube',
+    description: 'Comprende redes, almacenamiento, cómputo, observabilidad y despliegue continuo.',
+    level: 'Inicial',
+    duration_hours: 14,
+    image_url: '/images/cloud.svg',
+    featured: false,
+    category: { name: 'Cloud' },
+  },
+  {
+    id: 'fixture-security',
+    title: 'Seguridad para APIs',
+    description: 'Protege endpoints mediante JWT, validación, rate limiting y control de acceso.',
+    level: 'Avanzado',
+    duration_hours: 20,
+    image_url: '/images/security.svg',
+    featured: true,
+    category: { name: 'Ciberseguridad' },
+  },
+];
+
+const renderResourceGrid = (items) => (
+  <div className="resource-grid" aria-live="polite">
+    {items.map((resource) => <ResourceCard key={resource.id} resource={resource} />)}
+  </div>
+);
 
 export default function CatalogSection() {
   const [categories, setCategories] = useState([]);
@@ -94,11 +164,22 @@ export default function CatalogSection() {
         </div>
 
         {error && <div className="alert alert--error" role="alert">{error}</div>}
-        <div className="resource-grid" aria-live="polite">
-          {resources.map((resource) => <ResourceCard key={resource.id} resource={resource} />)}
-        </div>
+        <Skeleton
+          name="catalog-resource-grid"
+          loading={loading && page === 1}
+          animate="shimmer"
+          transition
+          stagger={35}
+          fixture={renderResourceGrid(catalogFixtureResources)}
+          fallback={renderResourceGrid(catalogFixtureResources)}
+          snapshotConfig={{
+            excludeSelectors: ['.resource-card__badge'],
+          }}
+        >
+          {renderResourceGrid(loading && page === 1 ? catalogFixtureResources : resources)}
+        </Skeleton>
         {!loading && resources.length === 0 && !error && <p className="empty-state">No se encontraron rutas con esos filtros.</p>}
-        {loading && <p className="loading-state" role="status">Cargando rutas...</p>}
+        {loading && page > 1 && <p className="loading-state" role="status">Cargando rutas...</p>}
         {hasMore && !loading && (
           <div className="catalog-actions">
             <button type="button" className="button button--outline" onClick={() => setPage((value) => value + 1)}>

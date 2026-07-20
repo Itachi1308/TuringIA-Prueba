@@ -29,7 +29,7 @@ turing-nexotech/
 
 ## Arquitectura
 
-- **Frontend:** React, Vite y React Router.
+- **Frontend:** React, Vite, React Router y Boneyard para skeleton screens del catálogo.
 - **Backend:** Express, validación, rate limiting, CORS y Helmet.
 - **Base de datos:** Supabase PostgreSQL.
 - **Autenticación:** Supabase Auth con usuarios `admin` y `user`.
@@ -150,6 +150,15 @@ npm run check
 ```
 
 El comando revisa la sintaxis del backend, ejecuta ESLint y compila el frontend.
+
+Si modificas el layout del catálogo, regenera los skeletons de carga con:
+
+```bash
+npm run dev --workspace frontend
+npm run bones --workspace frontend
+```
+
+Boneyard captura la UI real y actualiza `frontend/src/bones`.
 
 ## 7. Subir a GitHub
 
@@ -285,6 +294,7 @@ Nunca agregues `SUPABASE_SECRET_KEY` a una variable que comience con `VITE_`, po
 ```bash
 npm run dev       # Frontend y backend localmente
 npm run db:seed   # Crea usuarios y carga datos de demostración en Supabase
+npm run bones     # Regenera los skeletons de Boneyard del frontend
 npm run build     # Compila el frontend
 npm run start     # Inicia el backend
 npm run lint      # Revisa el frontend

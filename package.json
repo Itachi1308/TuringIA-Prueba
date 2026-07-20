@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "concurrently \"npm run dev --workspace backend\" \"npm run dev --workspace frontend\"",
     "db:seed": "npm run db:seed --workspace backend",
+    "bones": "npm run bones --workspace frontend",
     "build": "npm run build --workspace frontend",
     "start": "npm run start --workspace backend",
     "lint": "npm run lint --workspace frontend",

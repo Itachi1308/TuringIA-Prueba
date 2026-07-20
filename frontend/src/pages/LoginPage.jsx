@@ -6,7 +6,7 @@ import { useAuth } from '../context/auth-context.js';
 export default function LoginPage() {
   const { user, login } = useAuth();
   const navigate = useNavigate();
-  const [form, setForm] = useState({ email: 'admin@nexotech.mx', password: 'Admin123!' });
+  const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
 

@@ -43,6 +43,19 @@ const authLimiter = rateLimit({
   message: { message: 'Demasiados intentos. Intenta de nuevo más tarde.' },
 });
 
+app.get('/', (request, response) => {
+  response.json({
+    service: 'NexoTech API',
+    status: 'ok',
+    endpoints: {
+      health: '/api/health',
+      categories: '/api/categories',
+      resources: '/api/resources',
+      auth: '/api/auth/login',
+    },
+  });
+});
+
 app.get('/api/health', (request, response) => {
   response.json({ status: 'ok', service: 'NexoTech API', timestamp: new Date().toISOString() });
 });

@@ -3,12 +3,8 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const requiredVariables = [
-  'SUPABASE_URL',
-  'SUPABASE_PUBLISHABLE_KEY',
-  'SUPABASE_SECRET_KEY',
-  'SUPABASE_JWKS_URL',
-];
+const publicVariables = ['SUPABASE_URL', 'SUPABASE_PUBLISHABLE_KEY'];
+const adminVariables = ['SUPABASE_URL', 'SUPABASE_SECRET_KEY'];
 
 const authOptions = {
   persistSession: false,
@@ -19,7 +15,7 @@ const authOptions = {
 let publicClient;
 let adminClient;
 
-const ensureSupabaseConfig = () => {
+const ensureSupabaseConfig = (requiredVariables) => {
   const missingVariables = requiredVariables.filter((name) => !process.env[name]);
 
   if (missingVariables.length > 0) {
@@ -30,7 +26,7 @@ const ensureSupabaseConfig = () => {
 };
 
 const getPublicClient = () => {
-  ensureSupabaseConfig();
+  ensureSupabaseConfig(publicVariables);
   publicClient ??= createClient(
     process.env.SUPABASE_URL,
     process.env.SUPABASE_PUBLISHABLE_KEY,
@@ -41,7 +37,7 @@ const getPublicClient = () => {
 };
 
 const getAdminClient = () => {
-  ensureSupabaseConfig();
+  ensureSupabaseConfig(adminVariables);
   adminClient ??= createClient(
     process.env.SUPABASE_URL,
     process.env.SUPABASE_SECRET_KEY,

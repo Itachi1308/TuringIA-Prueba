@@ -1,7 +1,7 @@
-import { supabaseAdmin, supabasePublic, throwSupabaseError } from '../config/supabase.js';
+import { createSupabaseUserClient, supabasePublic, throwSupabaseError } from '../config/supabase.js';
 
-const getProfile = async (userId, email = '') => {
-  const { data, error } = await supabaseAdmin
+const getProfile = async (client, userId, email = '') => {
+  const { data, error } = await client
     .from('profiles')
     .select('id, name, role')
     .eq('id', userId)
@@ -27,7 +27,11 @@ const buildAuthResponse = async (session, authUser) => ({
   token: session.access_token,
   refreshToken: session.refresh_token,
   expiresAt: session.expires_at,
-  user: await getProfile(authUser.id, authUser.email || ''),
+  user: await getProfile(
+    createSupabaseUserClient(session.access_token),
+    authUser.id,
+    authUser.email || '',
+  ),
 });
 
 export const login = async (request, response) => {

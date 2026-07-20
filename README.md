@@ -93,7 +93,7 @@ SUPABASE_JWKS_URL=https://fahjewvnxdvaezyzxpzf.supabase.co/auth/v1/.well-known/j
 CORS_ORIGIN=http://localhost:5173,https://turing-ia-prueba-frontend-vxd8.vercel.app
 ```
 
-`backend/.env` está ignorado por Git y no debe subirse.
+`SUPABASE_SECRET_KEY` se usa para ejecutar el seed local contra Supabase Auth. El backend en producción opera con la publishable key y las políticas RLS. `backend/.env` está ignorado por Git y no debe subirse.
 
 ## 4. Crear usuarios y datos iniciales
 
@@ -196,7 +196,6 @@ git status
 NODE_ENV=production
 SUPABASE_URL=https://fahjewvnxdvaezyzxpzf.supabase.co
 SUPABASE_PUBLISHABLE_KEY=TU_CLAVE_PUBLICABLE
-SUPABASE_SECRET_KEY=TU_NUEVA_CLAVE_SECRETA
 SUPABASE_JWKS_URL=https://fahjewvnxdvaezyzxpzf.supabase.co/auth/v1/.well-known/jwks.json
 CORS_ORIGIN=https://TU-FRONTEND.vercel.app
 ```
@@ -283,10 +282,11 @@ Comprueba:
 NODE_ENV
 SUPABASE_URL
 SUPABASE_PUBLISHABLE_KEY
-SUPABASE_SECRET_KEY
 SUPABASE_JWKS_URL
 CORS_ORIGIN
 ```
+
+`SUPABASE_SECRET_KEY` solo es necesaria para el seed local (`npm run db:seed`) o tareas privadas de administración; no debe exponerse al frontend.
 
 ### Frontend de Vercel
 

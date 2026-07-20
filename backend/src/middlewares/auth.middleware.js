@@ -1,11 +1,16 @@
 import { createRemoteJWKSet, jwtVerify } from 'jose';
-import { supabaseAdmin, throwSupabaseError } from '../config/supabase.js';
+import {
+  createSupabaseUserClient,
+  getSupabaseIssuer,
+  getSupabaseJwksUrl,
+  throwSupabaseError,
+} from '../config/supabase.js';
 
 let jwks;
 
 const getJwks = () => {
   if (!jwks) {
-    jwks = createRemoteJWKSet(new URL(process.env.SUPABASE_JWKS_URL));
+    jwks = createRemoteJWKSet(new URL(getSupabaseJwksUrl()));
   }
 
   return jwks;
@@ -22,11 +27,12 @@ export const authenticate = async (request, response, next) => {
 
   try {
     const { payload } = await jwtVerify(token, getJwks(), {
-      issuer: `${process.env.SUPABASE_URL}/auth/v1`,
+      issuer: getSupabaseIssuer(),
       audience: 'authenticated',
     });
 
-    const { data: profile, error } = await supabaseAdmin
+    const supabase = createSupabaseUserClient(token);
+    const { data: profile, error } = await supabase
       .from('profiles')
       .select('id, name, role')
       .eq('id', payload.sub)
@@ -45,6 +51,7 @@ export const authenticate = async (request, response, next) => {
       email: typeof payload.email === 'string' ? payload.email : '',
       role: profile.role,
     };
+    request.supabase = supabase;
 
     return next();
   } catch (error) {

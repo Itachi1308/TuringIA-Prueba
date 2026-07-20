@@ -1,4 +1,4 @@
-import { supabaseAdmin, supabasePublic, throwSupabaseError } from '../config/supabase.js';
+import { supabasePublic, throwSupabaseError } from '../config/supabase.js';
 import { slugify } from '../utils/slugify.js';
 
 const normalizeCategory = (category) => ({
@@ -22,7 +22,7 @@ export const listCategories = async (request, response) => {
 
 export const createCategory = async (request, response) => {
   const { name, description = '' } = request.body;
-  const { data, error } = await supabaseAdmin
+  const { data, error } = await request.supabase
     .from('categories')
     .insert({
       name: name.trim(),
@@ -38,7 +38,7 @@ export const createCategory = async (request, response) => {
 
 export const updateCategory = async (request, response) => {
   const { name, description = '' } = request.body;
-  const { data, error } = await supabaseAdmin
+  const { data, error } = await request.supabase
     .from('categories')
     .update({
       name: name.trim(),
@@ -59,7 +59,7 @@ export const updateCategory = async (request, response) => {
 };
 
 export const deleteCategory = async (request, response) => {
-  const { data, error } = await supabaseAdmin
+  const { data, error } = await request.supabase
     .from('categories')
     .delete()
     .eq('id', Number(request.params.id))

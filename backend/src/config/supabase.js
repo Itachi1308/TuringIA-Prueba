@@ -3,8 +3,8 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const publicVariables = ['SUPABASE_URL', 'SUPABASE_PUBLISHABLE_KEY'];
-const adminVariables = ['SUPABASE_URL', 'SUPABASE_SECRET_KEY'];
+const defaultSupabaseUrl = 'https://fahjewvnxdvaezyzxpzf.supabase.co';
+const defaultSupabasePublishableKey = 'sb_publishable_eSh6wEIvSZ4Q8nEycvnNnA_HMYVOejR';
 
 const authOptions = {
   persistSession: false,
@@ -13,38 +13,38 @@ const authOptions = {
 };
 
 let publicClient;
-let adminClient;
 
-const ensureSupabaseConfig = (requiredVariables) => {
-  const missingVariables = requiredVariables.filter((name) => !process.env[name]);
+export const getSupabaseUrl = () => process.env.SUPABASE_URL || defaultSupabaseUrl;
 
-  if (missingVariables.length > 0) {
-    const error = new Error(`Faltan variables de Supabase: ${missingVariables.join(', ')}`);
+export const getSupabasePublishableKey = () => (
+  process.env.SUPABASE_PUBLISHABLE_KEY
+  || process.env.SUPABASE_ANON_KEY
+  || defaultSupabasePublishableKey
+);
+
+export const getSupabaseJwksUrl = () => (
+  process.env.SUPABASE_JWKS_URL || `${getSupabaseUrl()}/auth/v1/.well-known/jwks.json`
+);
+
+export const getSupabaseIssuer = () => `${getSupabaseUrl()}/auth/v1`;
+
+const ensurePublicConfig = () => {
+  if (!getSupabaseUrl() || !getSupabasePublishableKey()) {
+    const error = new Error('Faltan variables públicas de Supabase.');
     error.status = 500;
     throw error;
   }
 };
 
 const getPublicClient = () => {
-  ensureSupabaseConfig(publicVariables);
+  ensurePublicConfig();
   publicClient ??= createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_PUBLISHABLE_KEY,
+    getSupabaseUrl(),
+    getSupabasePublishableKey(),
     { auth: authOptions },
   );
 
   return publicClient;
-};
-
-const getAdminClient = () => {
-  ensureSupabaseConfig(adminVariables);
-  adminClient ??= createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_SECRET_KEY,
-    { auth: authOptions },
-  );
-
-  return adminClient;
 };
 
 const lazyClient = (getClient) => new Proxy(
@@ -60,7 +60,23 @@ const lazyClient = (getClient) => new Proxy(
 );
 
 export const supabasePublic = lazyClient(getPublicClient);
-export const supabaseAdmin = lazyClient(getAdminClient);
+
+export const createSupabaseUserClient = (token) => {
+  ensurePublicConfig();
+
+  return createClient(
+    getSupabaseUrl(),
+    getSupabasePublishableKey(),
+    {
+      auth: authOptions,
+      global: {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    },
+  );
+};
 
 export const throwSupabaseError = (error) => {
   if (!error) return;

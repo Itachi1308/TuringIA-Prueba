@@ -90,7 +90,7 @@ as $$
 $$;
 
 revoke all on function public.is_admin() from public;
-grant execute on function public.is_admin() to authenticated;
+grant execute on function public.is_admin() to authenticated, service_role;
 
 alter table public.profiles enable row level security;
 alter table public.categories enable row level security;
@@ -101,6 +101,12 @@ create policy "profiles_select_own"
 on public.profiles for select
 to authenticated
 using (id = auth.uid() or public.is_admin());
+
+drop policy if exists "profiles_public_author_read" on public.profiles;
+create policy "profiles_public_author_read"
+on public.profiles for select
+to anon, authenticated
+using (true);
 
 drop policy if exists "categories_public_read" on public.categories;
 create policy "categories_public_read"
@@ -152,8 +158,11 @@ on public.resources for delete
 to authenticated
 using (public.is_admin());
 
-grant usage on schema public to anon, authenticated;
-grant select on public.categories, public.resources to anon, authenticated;
-grant select on public.profiles to authenticated;
-grant insert, update, delete on public.categories, public.resources to authenticated;
-grant usage, select on all sequences in schema public to authenticated;
+grant usage on schema public to anon, authenticated, service_role;
+grant select on public.categories, public.resources to anon, authenticated, service_role;
+revoke select on public.profiles from anon, authenticated;
+grant select (id, name) on public.profiles to anon, authenticated;
+grant select on public.profiles to service_role;
+grant insert, update, delete on public.categories, public.resources to authenticated, service_role;
+grant insert, update, delete on public.profiles to service_role;
+grant usage, select on all sequences in schema public to authenticated, service_role;

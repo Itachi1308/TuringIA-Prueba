@@ -3,9 +3,9 @@ import { Skeleton } from 'boneyard-js/react';
 import { api } from '../services/api.js';
 import ResourceCard from './ResourceCard.jsx';
 
-const catalogFixtureResources = [
+const catalogSkeletonResources = [
   {
-    id: 'fixture-react',
+    id: 'skeleton-react',
     title: 'React desde cero',
     description: 'Componentes, estado, eventos y consumo de servicios REST con un proyecto práctico.',
     level: 'Inicial',
@@ -15,7 +15,7 @@ const catalogFixtureResources = [
     category: { name: 'Desarrollo web' },
   },
   {
-    id: 'fixture-api',
+    id: 'skeleton-api',
     title: 'API REST con Node.js',
     description: 'Diseña una API mantenible con Express, validación, seguridad, autenticación y Supabase.',
     level: 'Intermedio',
@@ -25,7 +25,7 @@ const catalogFixtureResources = [
     category: { name: 'Desarrollo web' },
   },
   {
-    id: 'fixture-sql',
+    id: 'skeleton-sql',
     title: 'SQL y modelado relacional',
     description: 'Aprende consultas, relaciones, índices y normalización hasta tercera forma normal.',
     level: 'Inicial',
@@ -35,7 +35,7 @@ const catalogFixtureResources = [
     category: { name: 'Datos' },
   },
   {
-    id: 'fixture-python',
+    id: 'skeleton-python',
     title: 'Analítica con Python',
     description: 'Procesa datos, automatiza tareas y crea reportes reproducibles con Python.',
     level: 'Intermedio',
@@ -45,7 +45,7 @@ const catalogFixtureResources = [
     category: { name: 'Datos' },
   },
   {
-    id: 'fixture-cloud',
+    id: 'skeleton-cloud',
     title: 'Fundamentos de nube',
     description: 'Comprende redes, almacenamiento, cómputo, observabilidad y despliegue continuo.',
     level: 'Inicial',
@@ -55,7 +55,7 @@ const catalogFixtureResources = [
     category: { name: 'Cloud' },
   },
   {
-    id: 'fixture-security',
+    id: 'skeleton-security',
     title: 'Seguridad para APIs',
     description: 'Protege endpoints mediante JWT, validación, rate limiting y control de acceso.',
     level: 'Avanzado',
@@ -214,14 +214,14 @@ export default function CatalogSection() {
           animate="shimmer"
           transition
           stagger={35}
-          fixture={renderResourceGrid(catalogFixtureResources, () => {})}
-          fallback={renderResourceGrid(catalogFixtureResources, () => {})}
+          fixture={renderResourceGrid(catalogSkeletonResources, () => {})}
+          fallback={renderResourceGrid(catalogSkeletonResources, () => {})}
           snapshotConfig={{
             excludeSelectors: ['.resource-card__badge'],
           }}
         >
           {renderResourceGrid(
-            loading && page === 1 ? catalogFixtureResources : resources,
+            loading && page === 1 ? catalogSkeletonResources : resources,
             openResourceDetail,
           )}
         </Skeleton>

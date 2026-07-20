@@ -75,11 +75,6 @@ const ensureUser = async ({ email, password, name, role }) => {
     role,
   });
 
-  if (profileError?.code === 'PGRST205') {
-    console.warn(`Perfil omitido para ${email}: ejecuta primero backend/db/supabase-schema.sql.`);
-    return user;
-  }
-
   if (profileError) throw profileError;
   return user;
 };
@@ -95,7 +90,7 @@ const run = async () => {
   await ensureUser({
     email: 'user@nexotech.mx',
     password: 'User123!',
-    name: 'Usuario de demostración',
+    name: 'Coordinador NexoTech',
     role: 'user',
   });
 

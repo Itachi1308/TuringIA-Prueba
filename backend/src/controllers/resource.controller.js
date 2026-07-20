@@ -1,5 +1,4 @@
 import { supabaseAdmin, supabasePublic, throwSupabaseError } from '../config/supabase.js';
-import { findDemoResource, paginateDemoResources, shouldUseDemoCatalog } from '../data/demoCatalog.js';
 import { slugify } from '../utils/slugify.js';
 
 const selectFields = `
@@ -25,89 +24,61 @@ export const listResources = async (request, response) => {
   const from = (page - 1) * limit;
   const to = from + limit - 1;
 
-  try {
-    let databaseQuery = supabasePublic
-      .from('resources')
-      .select(selectFields, { count: 'exact' })
-      .order('featured', { ascending: false })
-      .order('created_at', { ascending: false })
-      .range(from, to);
+  let databaseQuery = supabasePublic
+    .from('resources')
+    .select(selectFields, { count: 'exact' })
+    .order('featured', { ascending: false })
+    .order('created_at', { ascending: false })
+    .range(from, to);
 
-    if (request.query.category) {
-      databaseQuery = databaseQuery.eq('categories.slug', request.query.category);
-    }
-
-    if (request.query.search) {
-      const search = sanitizeSearch(request.query.search);
-      if (search) {
-        databaseQuery = databaseQuery.or(
-          `title.ilike.%${search}%,description.ilike.%${search}%`,
-        );
-      }
-    }
-
-    if (request.query.featured === 'true') {
-      databaseQuery = databaseQuery.eq('featured', true);
-    }
-
-    const { data, error, count } = await databaseQuery;
-    throwSupabaseError(error);
-
-    const total = count || 0;
-
-    return response.json({
-      data: data || [],
-      pagination: {
-        page,
-        limit,
-        total,
-        totalPages: Math.ceil(total / limit),
-        hasMore: from + (data?.length || 0) < total,
-      },
-    });
-  } catch (error) {
-    if (shouldUseDemoCatalog(error)) {
-      return response.json(paginateDemoResources({
-        page,
-        limit,
-        category: request.query.category || '',
-        search: request.query.search || '',
-        featured: request.query.featured === 'true',
-      }));
-    }
-
-    throw error;
+  if (request.query.category) {
+    databaseQuery = databaseQuery.eq('categories.slug', request.query.category);
   }
+
+  if (request.query.search) {
+    const search = sanitizeSearch(request.query.search);
+    if (search) {
+      databaseQuery = databaseQuery.or(
+        `title.ilike.%${search}%,description.ilike.%${search}%`,
+      );
+    }
+  }
+
+  if (request.query.featured === 'true') {
+    databaseQuery = databaseQuery.eq('featured', true);
+  }
+
+  const { data, error, count } = await databaseQuery;
+  throwSupabaseError(error);
+
+  const total = count || 0;
+
+  return response.json({
+    data: data || [],
+    pagination: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+      hasMore: from + (data?.length || 0) < total,
+    },
+  });
 };
 
 export const getResource = async (request, response) => {
-  try {
-    const { data, error } = await supabasePublic
-      .from('resources')
-      .select(selectFields)
-      .eq('id', Number(request.params.id))
-      .maybeSingle();
+  const { data, error } = await supabasePublic
+    .from('resources')
+    .select(selectFields)
+    .eq('id', Number(request.params.id))
+    .maybeSingle();
 
-    throwSupabaseError(error);
+  throwSupabaseError(error);
 
-    if (!data) {
-      return response.status(404).json({ message: 'Recurso no encontrado.' });
-    }
-
-    return response.json({ data });
-  } catch (error) {
-    if (shouldUseDemoCatalog(error)) {
-      const resource = findDemoResource(request.params.id);
-
-      if (!resource) {
-        return response.status(404).json({ message: 'Recurso no encontrado.' });
-      }
-
-      return response.json({ data: resource });
-    }
-
-    throw error;
+  if (!data) {
+    return response.status(404).json({ message: 'Recurso no encontrado.' });
   }
+
+  return response.json({ data });
 };
 
 export const createResource = async (request, response) => {

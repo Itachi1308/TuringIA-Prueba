@@ -17,8 +17,9 @@ turing-nexotech/
 │   ├── .env.example
 │   └── vercel.json                   # Reescritura para React Router
 ├── backend/                          # Node.js + Express
-│   ├── db/supabase-schema.sql        # Tablas, relaciones, triggers y RLS
-│   ├── scripts/seedSupabase.js       # Usuarios y datos de demostración
+│   ├── db/supabase-schema.sql        # Tablas, relaciones, triggers, grants y RLS
+│   ├── db/supabase-seed.sql          # Datos iniciales para SQL Editor
+│   ├── scripts/seedSupabase.js       # Usuarios y datos iniciales
 │   ├── src/
 │   └── .env.example
 ├── docs/
@@ -108,14 +109,20 @@ Después ejecuta:
 npm run db:seed
 ```
 
-Este comando crea o actualiza los usuarios de demostración en Supabase Auth y llena `profiles`, `categories` y `resources`.
+Este comando crea o actualiza usuarios operativos en Supabase Auth y llena `profiles`, `categories` y `resources`.
+
+Si prefieres hacerlo desde Supabase Dashboard, después del esquema ejecuta también:
+
+```text
+backend/db/supabase-seed.sql
+```
 
 | Rol | Correo | Contraseña |
 |---|---|---|
 | Admin | admin@nexotech.mx | Admin123! |
 | User | user@nexotech.mx | User123! |
 
-El seed reemplaza las categorías y recursos de demostración. No debe ejecutarse sobre una base con información real que se quiera conservar.
+El seed reemplaza las categorías y recursos iniciales. No debe ejecutarse sobre una base con información real que se quiera conservar.
 
 ## 5. Ejecutar localmente
 
@@ -293,7 +300,7 @@ Nunca agregues `SUPABASE_SECRET_KEY` a una variable que comience con `VITE_`, po
 
 ```bash
 npm run dev       # Frontend y backend localmente
-npm run db:seed   # Crea usuarios y carga datos de demostración en Supabase
+npm run db:seed   # Crea usuarios y carga datos iniciales en Supabase
 npm run bones     # Regenera los skeletons de Boneyard del frontend
 npm run build     # Compila el frontend
 npm run start     # Inicia el backend

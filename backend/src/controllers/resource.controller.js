@@ -1,5 +1,5 @@
 import { supabaseAdmin, supabasePublic, throwSupabaseError } from '../config/supabase.js';
-import { paginateDemoResources, shouldUseDemoCatalog } from '../data/demoCatalog.js';
+import { findDemoResource, paginateDemoResources, shouldUseDemoCatalog } from '../data/demoCatalog.js';
 import { slugify } from '../utils/slugify.js';
 
 const selectFields = `
@@ -81,19 +81,33 @@ export const listResources = async (request, response) => {
 };
 
 export const getResource = async (request, response) => {
-  const { data, error } = await supabaseAdmin
-    .from('resources')
-    .select(selectFields)
-    .eq('id', Number(request.params.id))
-    .maybeSingle();
+  try {
+    const { data, error } = await supabasePublic
+      .from('resources')
+      .select(selectFields)
+      .eq('id', Number(request.params.id))
+      .maybeSingle();
 
-  throwSupabaseError(error);
+    throwSupabaseError(error);
 
-  if (!data) {
-    return response.status(404).json({ message: 'Recurso no encontrado.' });
+    if (!data) {
+      return response.status(404).json({ message: 'Recurso no encontrado.' });
+    }
+
+    return response.json({ data });
+  } catch (error) {
+    if (shouldUseDemoCatalog(error)) {
+      const resource = findDemoResource(request.params.id);
+
+      if (!resource) {
+        return response.status(404).json({ message: 'Recurso no encontrado.' });
+      }
+
+      return response.json({ data: resource });
+    }
+
+    throw error;
   }
-
-  return response.json({ data });
 };
 
 export const createResource = async (request, response) => {

@@ -66,9 +66,11 @@ const catalogFixtureResources = [
   },
 ];
 
-const renderResourceGrid = (items) => (
+const renderResourceGrid = (items, onSelect) => (
   <div className="resource-grid" aria-live="polite">
-    {items.map((resource) => <ResourceCard key={resource.id} resource={resource} />)}
+    {items.map((resource) => (
+      <ResourceCard key={resource.id} resource={resource} onSelect={onSelect} />
+    ))}
   </div>
 );
 
@@ -82,6 +84,9 @@ export default function CatalogSection() {
   const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [selectedResource, setSelectedResource] = useState(null);
+  const [detailLoading, setDetailLoading] = useState(false);
+  const [detailError, setDetailError] = useState('');
 
   useEffect(() => {
     api.categories.list().then(({ data }) => setCategories(data)).catch(() => setCategories([]));
@@ -111,6 +116,27 @@ export default function CatalogSection() {
     };
   }, [page, category, appliedSearch]);
 
+  useEffect(() => {
+    if (!selectedResource) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') {
+        setSelectedResource(null);
+        setDetailError('');
+        setDetailLoading(false);
+      }
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', closeOnEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [selectedResource]);
+
   const chooseCategory = (slug) => {
     setCategory(slug);
     setPage(1);
@@ -120,6 +146,24 @@ export default function CatalogSection() {
     event.preventDefault();
     setAppliedSearch(search.trim());
     setPage(1);
+  };
+
+  const openResourceDetail = (resource) => {
+    setSelectedResource(resource);
+    setDetailLoading(true);
+    setDetailError('');
+
+    api.resources
+      .get(resource.id)
+      .then(({ data }) => setSelectedResource(data))
+      .catch((requestError) => setDetailError(requestError.message))
+      .finally(() => setDetailLoading(false));
+  };
+
+  const closeResourceDetail = () => {
+    setSelectedResource(null);
+    setDetailError('');
+    setDetailLoading(false);
   };
 
   return (
@@ -170,13 +214,16 @@ export default function CatalogSection() {
           animate="shimmer"
           transition
           stagger={35}
-          fixture={renderResourceGrid(catalogFixtureResources)}
-          fallback={renderResourceGrid(catalogFixtureResources)}
+          fixture={renderResourceGrid(catalogFixtureResources, () => {})}
+          fallback={renderResourceGrid(catalogFixtureResources, () => {})}
           snapshotConfig={{
             excludeSelectors: ['.resource-card__badge'],
           }}
         >
-          {renderResourceGrid(loading && page === 1 ? catalogFixtureResources : resources)}
+          {renderResourceGrid(
+            loading && page === 1 ? catalogFixtureResources : resources,
+            openResourceDetail,
+          )}
         </Skeleton>
         {!loading && resources.length === 0 && !error && <p className="empty-state">No se encontraron rutas con esos filtros.</p>}
         {loading && page > 1 && <p className="loading-state" role="status">Cargando rutas...</p>}
@@ -188,6 +235,51 @@ export default function CatalogSection() {
           </div>
         )}
       </div>
+      {selectedResource && (
+        <div className="resource-modal" role="presentation" onMouseDown={closeResourceDetail}>
+          <article
+            className="resource-modal__panel"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="resource-detail-title"
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="resource-modal__close"
+              aria-label="Cerrar detalle"
+              onClick={closeResourceDetail}
+            >
+              ×
+            </button>
+            <div className="resource-modal__media">
+              <img src={selectedResource.image_url} alt="" />
+            </div>
+            <div className="resource-modal__content">
+              <span className="resource-card__category">{selectedResource.category.name}</span>
+              <h3 id="resource-detail-title">{selectedResource.title}</h3>
+              <p>{selectedResource.description}</p>
+              {detailError && <div className="alert alert--error" role="alert">{detailError}</div>}
+              {detailLoading && <p className="loading-state" role="status">Cargando detalle...</p>}
+              <dl className="resource-modal__facts">
+                <div>
+                  <dt>Nivel</dt>
+                  <dd>{selectedResource.level}</dd>
+                </div>
+                <div>
+                  <dt>Duración</dt>
+                  <dd>{selectedResource.duration_hours} h</dd>
+                </div>
+                <div>
+                  <dt>Autor</dt>
+                  <dd>{selectedResource.author?.name || 'Equipo NexoTech'}</dd>
+                </div>
+              </dl>
+              <a className="button" href="/login">Entrar a la ruta</a>
+            </div>
+          </article>
+        </div>
+      )}
     </section>
   );
 }

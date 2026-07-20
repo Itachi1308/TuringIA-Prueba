@@ -73,6 +73,8 @@ export const demoResources = [
   buildResource(9, 'Dashboards efectivos', 'Convierte datos en indicadores claros mediante diseño visual y narrativa analítica.', 'Inicial', 10, '/images/dashboard.svg', false, 'datos'),
 ];
 
+export const findDemoResource = (id) => demoResources.find((resource) => resource.id === Number(id));
+
 export const shouldUseDemoCatalog = (error) => {
   const message = error?.message || '';
 

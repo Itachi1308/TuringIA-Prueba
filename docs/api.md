@@ -1,6 +1,7 @@
 # Documentación de la API NexoTech
 
 Base local: `http://localhost:4000/api`
+Base producción: `https://turing-ia-prueba-backend.vercel.app/api`
 
 ## Autenticación con Supabase Auth
 

@@ -65,5 +65,7 @@ erDiagram
 - RLS está habilitado en las tres tablas públicas.
 - Categorías y recursos admiten lectura pública.
 - Solo un usuario autenticado con rol `admin` puede crear, modificar o eliminar datos.
-- Los perfiles solo pueden ser consultados por su propietario o por un administrador.
-- El backend utiliza la clave secreta exclusivamente en el servidor y comprueba el rol antes de ejecutar operaciones protegidas.
+- La lectura pública de autores expone solo `id` y `name`.
+- Los usuarios autenticados leen su propio perfil con `id`, `name` y `role`.
+- El backend usa la publishable key y el JWT del usuario para que Supabase aplique RLS en operaciones protegidas.
+- La clave secreta se reserva para el seed local y tareas privadas de administración.

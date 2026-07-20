@@ -40,7 +40,9 @@ Esta lista resume el alcance implementado y los puntos que se validan antes de e
 
 ## Validación final
 
-- [ ] Ejecutar `backend/db/supabase-schema.sql` en Supabase.
-- [ ] Ejecutar `npm run db:seed`.
-- [ ] Confirmar que `/api/health`, `/api/categories` y `/api/resources` respondan en Vercel.
-- [ ] Confirmar que el frontend público use el backend público, no `localhost`.
+- [x] Ejecutar `backend/db/supabase-schema.sql` en Supabase.
+- [x] Ejecutar `npm run db:seed`.
+- [x] Confirmar que `/api/health`, `/api/categories` y `/api/resources` respondan en Vercel.
+- [x] Confirmar que el frontend público use el backend público, no `localhost`.
+- [x] Confirmar login de administrador y usuario normal contra Supabase Auth.
+- [x] Confirmar que el catálogo abre el detalle de cada recurso desde la interfaz pública.

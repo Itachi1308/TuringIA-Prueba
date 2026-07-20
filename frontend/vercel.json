@@ -1,5 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "env": {
+    "VITE_API_URL": "https://turing-ia-prueba-backend.vercel.app/api"
+  },
   "rewrites": [
     {
       "source": "/(.*)",

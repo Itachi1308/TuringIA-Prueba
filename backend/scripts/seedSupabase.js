@@ -134,6 +134,12 @@ const run = async () => {
 };
 
 run().catch((error) => {
+  if (error.code === 'PGRST205') {
+    console.error('No se encontraron las tablas públicas del proyecto en Supabase.');
+    console.error('Ejecuta primero backend/db/supabase-schema.sql desde Supabase Dashboard > SQL Editor.');
+    process.exit(1);
+  }
+
   console.error('No fue posible poblar Supabase:', error.message || error);
   console.error('Verifica que backend/db/supabase-schema.sql ya se haya ejecutado en el SQL Editor.');
   process.exit(1);

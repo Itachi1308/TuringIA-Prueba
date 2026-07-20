@@ -16,6 +16,12 @@ export const errorHandler = (error, request, response, next) => {
     });
   }
 
+  if (error.code === 'PGRST205') {
+    return response.status(503).json({
+      message: 'La base de datos de Supabase todavía no tiene instalado el esquema del proyecto.',
+    });
+  }
+
   const status = error.status || 500;
   const message = status === 500 ? 'Ocurrió un error interno en el servidor.' : error.message;
 

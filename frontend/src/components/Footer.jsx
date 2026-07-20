@@ -6,24 +6,24 @@ export default function Footer() {
       <div className="container site-footer__grid">
         <div>
           <Logo />
-          <p>Aprendizaje tecnológico organizado, claro y conectado con proyectos reales.</p>
+          <p>Catálogo de rutas técnicas conectado a una API REST, con autenticación y administración de contenido.</p>
         </div>
         <div>
           <h2 className="site-footer__title">Explora</h2>
           <a href="/#catalogo">Catálogo</a>
           <a href="/#beneficios">Beneficios</a>
-          <a href="/#mentores">Mentores</a>
+          <a href="/#criterios">Criterios</a>
         </div>
         <div>
           <h2 className="site-footer__title">Proyecto</h2>
-          <span>React + Express</span>
-          <span>Supabase</span>
-          <span>API REST</span>
+          <span>React + Vite</span>
+          <span>Express + Supabase</span>
+          <span>JWT + roles</span>
         </div>
       </div>
       <div className="container site-footer__bottom">
         <span>© {new Date().getFullYear()} NexoTech</span>
-        <span>Desarrollado para el periodo de prueba</span>
+        <span>Periodo de prueba de desarrollo de software</span>
       </div>
     </footer>
   );

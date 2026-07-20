@@ -5,6 +5,10 @@ dotenv.config();
 
 const port = Number(process.env.PORT || 4000);
 
-app.listen(port, () => {
-  console.log(`NexoTech API disponible en http://localhost:${port}`);
-});
+if (!process.env.VERCEL) {
+  app.listen(port, () => {
+    console.log(`NexoTech API disponible en http://localhost:${port}`);
+  });
+}
+
+export default app;

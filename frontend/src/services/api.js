@@ -1,4 +1,8 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+const PRODUCTION_API_URL = 'https://turing-ia-prueba-backend.vercel.app/api';
+
+const API_URL = import.meta.env.PROD
+  ? PRODUCTION_API_URL
+  : import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
 
 const saveSession = ({ token, refreshToken }) => {
   if (token) localStorage.setItem('nexotech_token', token);

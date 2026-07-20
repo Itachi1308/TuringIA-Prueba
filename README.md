@@ -1,6 +1,12 @@
-# NexoTech - React, Express y Supabase
+# NexoTech - Catálogo full-stack
 
-Aplicación full-stack del periodo de prueba. El frontend está desarrollado con React y Vite; el backend utiliza Node.js y Express; la autenticación, los usuarios y la base PostgreSQL se administran en Supabase.
+NexoTech es una aplicación full-stack para consultar y administrar rutas técnicas. El frontend está desarrollado con React y Vite; el backend utiliza Node.js y Express; la autenticación, los usuarios y la base PostgreSQL se administran en Supabase.
+
+## Enlaces de entrega
+
+- Frontend: `https://turing-ia-prueba-frontend-vxd8.vercel.app`
+- Backend: `https://turing-ia-prueba-backend.vercel.app`
+- Health check: `https://turing-ia-prueba-backend.vercel.app/api/health`
 
 ## Estructura
 
@@ -83,7 +89,7 @@ SUPABASE_URL=https://fahjewvnxdvaezyzxpzf.supabase.co
 SUPABASE_PUBLISHABLE_KEY=TU_CLAVE_PUBLICABLE
 SUPABASE_SECRET_KEY=TU_NUEVA_CLAVE_SECRETA
 SUPABASE_JWKS_URL=https://fahjewvnxdvaezyzxpzf.supabase.co/auth/v1/.well-known/jwks.json
-CORS_ORIGIN=http://localhost:5173
+CORS_ORIGIN=http://localhost:5173,https://turing-ia-prueba-frontend-vxd8.vercel.app
 ```
 
 `backend/.env` está ignorado por Git y no debe subirse.
@@ -167,7 +173,7 @@ git status
 1. En Vercel selecciona **Add New > Project**.
 2. Importa el repositorio.
 3. En **Root Directory**, selecciona `backend`.
-4. Usa **Framework Preset: Other**. Vercel detectará `src/server.js` como servidor Node.js.
+4. Usa **Framework Preset: Other**. El archivo `src/server.js` exporta la app Express para que Vercel la ejecute como función.
 5. En **Environment Variables**, agrega:
 
 ```text
@@ -186,9 +192,9 @@ Cuando todavía no conozcas el dominio final del frontend, puedes colocar tempor
 Prueba:
 
 ```text
-https://TU-BACKEND.vercel.app/api/health
-https://TU-BACKEND.vercel.app/api/categories
-https://TU-BACKEND.vercel.app/api/resources
+https://turing-ia-prueba-backend.vercel.app/api/health
+https://turing-ia-prueba-backend.vercel.app/api/categories
+https://turing-ia-prueba-backend.vercel.app/api/resources
 ```
 
 ## 9. Desplegar el frontend en Vercel
@@ -210,6 +216,12 @@ Install Command: npm install
 VITE_API_URL=https://TU-BACKEND.vercel.app/api
 ```
 
+Para esta entrega, el valor es:
+
+```text
+VITE_API_URL=https://turing-ia-prueba-backend.vercel.app/api
+```
+
 6. Despliega.
 
 `frontend/vercel.json` evita errores 404 al recargar `/login`, `/perfil` o `/admin`.
@@ -226,13 +238,13 @@ Cuando tengas el dominio real del frontend:
 Ejemplo:
 
 ```text
-CORS_ORIGIN=https://nexotech-frontend.vercel.app
+CORS_ORIGIN=https://turing-ia-prueba-frontend-vxd8.vercel.app
 ```
 
 También puedes admitir desarrollo local separando valores con coma:
 
 ```text
-CORS_ORIGIN=https://nexotech-frontend.vercel.app,http://localhost:5173
+CORS_ORIGIN=https://turing-ia-prueba-frontend-vxd8.vercel.app,http://localhost:5173
 ```
 
 ## 11. Prueba final

@@ -9,12 +9,27 @@ import resourceRoutes from './routes/resource.routes.js';
 import { errorHandler, notFound } from './middlewares/error.middleware.js';
 
 const app = express();
+const defaultCorsOrigins = [
+  'http://localhost:5173',
+  'https://turing-ia-prueba-frontend-vxd8.vercel.app',
+];
+const corsOrigins = process.env.CORS_ORIGIN
+  ?.split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean) || defaultCorsOrigins;
 
 app.disable('x-powered-by');
 app.use(helmet());
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN?.split(',').map((origin) => origin.trim()) || 'http://localhost:5173',
+    origin(origin, callback) {
+      if (!origin || corsOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(new Error('Origen no permitido por CORS.'));
+    },
   }),
 );
 app.use(express.json({ limit: '100kb' }));

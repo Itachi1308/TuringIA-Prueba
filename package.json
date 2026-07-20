@@ -1,0 +1,20 @@
+{
+  "name": "turing-nexotech-fullstack",
+  "version": "1.1.0",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace backend\" \"npm run dev --workspace frontend\"",
+    "db:seed": "npm run db:seed --workspace backend",
+    "build": "npm run build --workspace frontend",
+    "start": "npm run start --workspace backend",
+    "lint": "npm run lint --workspace frontend",
+    "check": "npm run check --workspace backend && npm run lint --workspace frontend && npm run build --workspace frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

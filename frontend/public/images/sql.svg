@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-labelledby="title">
+<title>SQL</title>
+<rect width="800" height="450" fill="#d7e1e6"/>
+<circle cx="650" cy="80" r="180" fill="none" stroke="#102a40" stroke-opacity=".16" stroke-width="28"/>
+<circle cx="85" cy="390" r="150" fill="none" stroke="#102a40" stroke-opacity=".12" stroke-width="20"/>
+<rect x="70" y="80" width="160" height="160" rx="36" fill="#102a40" fill-opacity=".95"/>
+<text x="150" y="182" text-anchor="middle" font-family="Arial, sans-serif" font-weight="800" font-size="54" fill="#d7e1e6">DB</text>
+<text x="70" y="310" font-family="Arial, sans-serif" font-weight="800" font-size="58" letter-spacing="4" fill="#102a40">SQL</text>
+<rect x="70" y="340" width="300" height="14" rx="7" fill="#102a40" fill-opacity=".35"/>
+<rect x="70" y="370" width="220" height="14" rx="7" fill="#102a40" fill-opacity=".22"/>
+</svg>

@@ -1,0 +1,149 @@
+{
+  "info": {
+    "name": "NexoTech API",
+    "description": "Colección para probar autenticación, categorías y recursos.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:4000/api" },
+    { "key": "token", "value": "" },
+    { "key": "resourceId", "value": "1" },
+    { "key": "categoryId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const data = pm.response.json();",
+                  "if (data.token) pm.collectionVariables.set('token', data.token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@nexotech.mx\",\n  \"password\": \"Admin123!\"\n}"
+            },
+            "url": "{{baseUrl}}/auth/login"
+          }
+        },
+        {
+          "name": "Perfil actual",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/auth/me"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Listar categorías",
+          "request": { "method": "GET", "url": "{{baseUrl}}/categories" }
+        },
+        {
+          "name": "Crear categoría",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Inteligencia artificial\",\n  \"description\": \"Modelos y automatización.\"\n}"
+            },
+            "url": "{{baseUrl}}/categories"
+          }
+        },
+        {
+          "name": "Actualizar categoría",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"IA aplicada\",\n  \"description\": \"Modelos y automatización aplicada.\"\n}"
+            },
+            "url": "{{baseUrl}}/categories/{{categoryId}}"
+          }
+        },
+        {
+          "name": "Eliminar categoría",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/categories/{{categoryId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Resources",
+      "item": [
+        {
+          "name": "Listar recursos",
+          "request": { "method": "GET", "url": "{{baseUrl}}/resources?page=1&limit=6" }
+        },
+        {
+          "name": "Obtener recurso",
+          "request": { "method": "GET", "url": "{{baseUrl}}/resources/{{resourceId}}" }
+        },
+        {
+          "name": "Crear recurso",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Introducción a IA\",\n  \"description\": \"Ruta práctica para comprender modelos y casos de uso de inteligencia artificial.\",\n  \"level\": \"Inicial\",\n  \"durationHours\": 12,\n  \"imageUrl\": \"/images/python.svg\",\n  \"featured\": true,\n  \"categoryId\": 1\n}"
+            },
+            "url": "{{baseUrl}}/resources"
+          }
+        },
+        {
+          "name": "Actualizar recurso",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Introducción a IA actualizada\",\n  \"description\": \"Ruta actualizada para comprender modelos y casos de uso de inteligencia artificial.\",\n  \"level\": \"Intermedio\",\n  \"durationHours\": 14,\n  \"imageUrl\": \"/images/python.svg\",\n  \"featured\": true,\n  \"categoryId\": 1\n}"
+            },
+            "url": "{{baseUrl}}/resources/{{resourceId}}"
+          }
+        },
+        {
+          "name": "Eliminar recurso",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/resources/{{resourceId}}"
+          }
+        }
+      ]
+    }
+  ]
+}

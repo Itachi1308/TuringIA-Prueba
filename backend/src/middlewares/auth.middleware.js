@@ -1,5 +1,6 @@
 import { createRemoteJWKSet, jwtVerify } from 'jose';
 import { supabaseAdmin, throwSupabaseError } from '../config/supabase.js';
+import { buildUserFromAuthData, isProfileLookupUnavailable } from '../utils/authProfile.js';
 
 let jwks;
 
@@ -26,25 +27,34 @@ export const authenticate = async (request, response, next) => {
       audience: 'authenticated',
     });
 
-    const { data: profile, error } = await supabaseAdmin
-      .from('profiles')
-      .select('id, name, role')
-      .eq('id', payload.sub)
-      .maybeSingle();
+    try {
+      const { data: profile, error } = await supabaseAdmin
+        .from('profiles')
+        .select('id, name, role')
+        .eq('id', payload.sub)
+        .maybeSingle();
 
-    throwSupabaseError(error);
+      throwSupabaseError(error);
 
-    if (!profile) {
-      return response.status(403).json({ message: 'El usuario no tiene un perfil autorizado.' });
+      if (!profile) {
+        request.user = buildUserFromAuthData(payload);
+        return next();
+      }
+
+      request.user = {
+        sub: payload.sub,
+        id: profile.id,
+        name: profile.name,
+        email: typeof payload.email === 'string' ? payload.email : '',
+        role: profile.role,
+      };
+    } catch (profileError) {
+      if (!isProfileLookupUnavailable(profileError)) {
+        throw profileError;
+      }
+
+      request.user = buildUserFromAuthData(payload);
     }
-
-    request.user = {
-      sub: payload.sub,
-      id: profile.id,
-      name: profile.name,
-      email: typeof payload.email === 'string' ? payload.email : '',
-      role: profile.role,
-    };
 
     return next();
   } catch (error) {

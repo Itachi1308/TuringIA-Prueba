@@ -1,33 +1,41 @@
 import { supabaseAdmin, supabasePublic, throwSupabaseError } from '../config/supabase.js';
+import { buildUserFromAuthData, isProfileLookupUnavailable } from '../utils/authProfile.js';
 
-const getProfile = async (userId, fallbackEmail = '') => {
-  const { data, error } = await supabaseAdmin
-    .from('profiles')
-    .select('id, name, role')
-    .eq('id', userId)
-    .maybeSingle();
+const getProfile = async (authUser) => {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from('profiles')
+      .select('id, name, role')
+      .eq('id', authUser.id)
+      .maybeSingle();
 
-  throwSupabaseError(error);
+    throwSupabaseError(error);
 
-  if (!data) {
-    const notFoundError = new Error('El usuario no tiene un perfil configurado.');
-    notFoundError.status = 403;
-    throw notFoundError;
+    if (!data) {
+      return buildUserFromAuthData(authUser);
+    }
+
+    return {
+      id: data.id,
+      sub: data.id,
+      name: data.name,
+      email: authUser.email || '',
+      role: data.role,
+    };
+  } catch (error) {
+    if (isProfileLookupUnavailable(error)) {
+      return buildUserFromAuthData(authUser);
+    }
+
+    throw error;
   }
-
-  return {
-    id: data.id,
-    name: data.name,
-    email: fallbackEmail,
-    role: data.role,
-  };
 };
 
 const buildAuthResponse = async (session, authUser) => ({
   token: session.access_token,
   refreshToken: session.refresh_token,
   expiresAt: session.expires_at,
-  user: await getProfile(authUser.id, authUser.email || ''),
+  user: await getProfile(authUser),
 });
 
 export const login = async (request, response) => {

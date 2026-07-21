@@ -2,33 +2,33 @@ import CatalogSection from '../components/CatalogSection.jsx';
 import PageShell from '../components/PageShell.jsx';
 
 const stats = [
-  ['9', 'rutas cargadas'],
-  ['4', 'categorías base'],
-  ['3', 'vistas protegidas'],
+  ['9', 'rutas'],
+  ['4', 'categorías'],
+  ['2', 'perfiles'],
 ];
 
 const benefits = [
   {
     number: '01',
-    title: 'Catálogo administrable',
-    text: 'Las rutas se consultan desde la API y el contenido puede mantenerse desde el panel de administración.',
+    title: 'Rutas claras',
+    text: 'Cada recurso resume nivel, duración y tema para elegir sin perder tiempo.',
   },
   {
     number: '02',
-    title: 'Flujo completo',
-    text: 'El proyecto conecta interfaz, validaciones, rutas REST, autenticación y persistencia en Supabase.',
+    title: 'Contenido ordenado',
+    text: 'El catálogo se mantiene por categorías y se puede actualizar desde el panel interno.',
   },
   {
     number: '03',
-    title: 'Acceso por rol',
-    text: 'Los usuarios pueden iniciar sesión y consultar su perfil; solo el administrador gestiona recursos y categorías.',
+    title: 'Acceso privado',
+    text: 'Cada persona entra con su cuenta y ve las secciones que le corresponden.',
   },
 ];
 
 const technicalNotes = [
-  ['API', 'Paginación, filtros por categoría y búsqueda de texto en recursos publicados.'],
-  ['Auth', 'Sesiones con Supabase Auth, refresh token y verificación JWT en el backend.'],
-  ['Datos', 'Tablas relacionadas, llaves foráneas, RLS y datos iniciales reproducibles.'],
+  ['Ruta', 'Programas cortos para avanzar por nivel y reforzar conceptos prácticos.'],
+  ['Filtro', 'Búsqueda por texto y categorías para llegar rápido al contenido adecuado.'],
+  ['Panel', 'Herramientas internas para mantener recursos y categorías al día.'],
 ];
 
 export default function HomePage() {
@@ -40,19 +40,31 @@ export default function HomePage() {
         <div className="container hero__content">
           <div className="hero__copy">
             <span className="eyebrow eyebrow--light">NexoTech Academy</span>
-            <h1>Rutas técnicas conectadas a una API real</h1>
+            <h1>Rutas técnicas para aprender con orden</h1>
             <p>
-              Una aplicación full-stack para consultar recursos, filtrar contenido y administrar el catálogo con usuarios diferenciados por rol.
+              Explora recursos por tema, revisa el nivel de cada ruta y entra con tu cuenta cuando quieras continuar.
             </p>
             <div className="hero__actions">
               <button type="button" className="button" onClick={scrollToCatalog}>Explorar catálogo</button>
-              <a className="button button--ghost" href="#criterios">Ver criterios técnicos</a>
+              <a className="button button--ghost" href="#criterios">Ver rutas</a>
             </div>
           </div>
           <div className="hero__visual" aria-hidden="true">
-            <div className="hero__orb hero__orb--large">&lt;/&gt;</div>
-            <div className="hero__orb hero__orb--small">API</div>
-            <div className="hero__line" />
+            <div className="hero-card hero-card--primary">
+              <span>Desarrollo web</span>
+              <strong>React desde cero</strong>
+              <small>18 h · Inicial</small>
+            </div>
+            <div className="hero-card hero-card--secondary">
+              <span>Datos</span>
+              <strong>SQL y modelado relacional</strong>
+              <small>16 h · Inicial</small>
+            </div>
+            <div className="hero-card hero-card--accent">
+              <span>Cloud</span>
+              <strong>Fundamentos de nube</strong>
+              <small>14 h · Inicial</small>
+            </div>
           </div>
         </div>
         <div className="container stat-strip">
@@ -70,8 +82,8 @@ export default function HomePage() {
       <section id="beneficios" className="section" aria-labelledby="benefits-title">
         <div className="container">
           <div className="section-heading">
-            <span className="eyebrow">Alcance del proyecto</span>
-            <h2 id="benefits-title">Una entrega pensada para probarse de principio a fin</h2>
+            <span className="eyebrow">Catálogo</span>
+            <h2 id="benefits-title">Todo queda fácil de encontrar</h2>
           </div>
           <div className="benefit-grid">
             {benefits.map((benefit) => (
@@ -88,16 +100,16 @@ export default function HomePage() {
       <section className="split-callout">
         <div className="container split-callout__grid">
           <div>
-            <span className="eyebrow eyebrow--light">Prueba técnica</span>
-            <h2>Separación clara entre interfaz, API y datos</h2>
-            <p>La aplicación evita depender de datos estáticos: el catálogo se alimenta del backend, el backend consulta Supabase y las operaciones sensibles validan el rol antes de escribir.</p>
+            <span className="eyebrow eyebrow--light">Panel interno</span>
+            <h2>El contenido se mantiene desde un solo lugar</h2>
+            <p>El administrador puede publicar rutas, ajustar categorías y mantener el catálogo actualizado sin tocar la interfaz pública.</p>
             <a href="/login" className="button">Probar acceso</a>
           </div>
           <div className="split-callout__panel" aria-label="Tecnologías principales">
-            <span>React</span>
-            <span>Express</span>
-            <span>Supabase</span>
-            <span>JWT</span>
+            <span>Publicar</span>
+            <span>Editar</span>
+            <span>Ordenar</span>
+            <span>Revisar</span>
           </div>
         </div>
       </section>
@@ -105,8 +117,8 @@ export default function HomePage() {
       <section id="criterios" className="section" aria-labelledby="criteria-title">
         <div className="container">
           <div className="section-heading">
-            <span className="eyebrow">Criterios técnicos</span>
-            <h2 id="criteria-title">Decisiones que sostienen la entrega</h2>
+            <span className="eyebrow">Rutas</span>
+            <h2 id="criteria-title">Opciones para empezar o profundizar</h2>
           </div>
           <div className="mentor-grid">
             {technicalNotes.map(([initials, title, text]) => (

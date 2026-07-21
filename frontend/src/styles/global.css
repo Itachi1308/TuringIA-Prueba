@@ -60,11 +60,13 @@ button:disabled { cursor: wait; opacity: 0.65; }
 .hero h1 { max-width: 760px; margin: 16px 0 20px; font-size: clamp(2.5rem, 5vw, 4.8rem); line-height: 0.98; letter-spacing: -0.055em; }
 .hero p { max-width: 680px; color: #c6d5dd; line-height: 1.75; font-size: 1.06rem; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-.hero__visual { position: relative; min-height: 360px; }
-.hero__orb { position: absolute; display: grid; place-items: center; border-radius: 50%; font-weight: 900; letter-spacing: -0.04em; }
-.hero__orb--large { width: 230px; height: 230px; right: 50px; top: 42px; background: var(--green); color: var(--navy); font-size: 3.6rem; box-shadow: 0 0 0 28px rgba(31, 191, 144, 0.08); }
-.hero__orb--small { width: 106px; height: 106px; left: 20px; bottom: 35px; background: var(--surface); color: var(--green-dark); font-size: 1.4rem; }
-.hero__line { position: absolute; width: 210px; height: 2px; left: 108px; bottom: 88px; background: linear-gradient(90deg, var(--green-light), transparent); transform: rotate(-17deg); transform-origin: left; }
+.hero__visual { position: relative; min-height: 360px; display: grid; align-content: center; gap: 16px; }
+.hero-card { width: min(360px, 100%); padding: 22px; border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(255, 255, 255, 0.08); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.16); }
+.hero-card--primary { justify-self: end; }
+.hero-card--secondary { justify-self: center; }
+.hero-card--accent { justify-self: start; background: var(--green); color: var(--navy); border-color: transparent; }
+.hero-card span, .hero-card small { display: block; color: inherit; opacity: 0.78; font-size: 0.82rem; font-weight: 800; }
+.hero-card strong { display: block; margin: 8px 0; font-size: 1.2rem; }
 .eyebrow { display: inline-block; color: var(--green-dark); font-size: 0.78rem; font-weight: 900; letter-spacing: 0.16em; text-transform: uppercase; }
 .eyebrow--light { color: var(--green-light); }
 .stat-strip { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(3, 1fr); background: var(--green); color: var(--navy); border-radius: 18px 18px 0 0; overflow: hidden; }

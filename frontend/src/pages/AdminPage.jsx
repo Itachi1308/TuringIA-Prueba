@@ -138,7 +138,7 @@ export default function AdminPage() {
         <div className="container">
           <span className="eyebrow">Panel protegido</span>
           <h1>Administración de contenido</h1>
-          <p>Gestiona recursos y categorías mediante operaciones CRUD conectadas a Supabase PostgreSQL.</p>
+          <p>Publica rutas, ajusta categorías y mantén el catálogo al día.</p>
           {message && <div className="alert alert--success" role="status">{message}</div>}
           {error && <div className="alert alert--error" role="alert">{error}</div>}
         </div>

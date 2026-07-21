@@ -1,9 +1,9 @@
-# Guion sugerido para el video demostrativo
+# Guion del video
 
 Duración aproximada: 2 a 4 minutos.
 
 1. Presentación breve del proyecto NexoTech y del wireframe elegido.
-2. Recorrido por la página principal: hero, estadísticas, catálogo, beneficios y mentores.
+2. Recorrido por la página principal: portada, estadísticas, catálogo y secciones de apoyo.
 3. Mostrar que las tarjetas se cargan desde la API.
 4. Cambiar categorías, realizar una búsqueda y usar "Cargar más".
 5. Reducir la ventana para demostrar el diseño responsivo.

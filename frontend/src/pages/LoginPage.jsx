@@ -35,7 +35,7 @@ export default function LoginPage() {
         <a href="/" className="auth-card__brand"><Logo /></a>
         <span className="eyebrow">Acceso seguro</span>
         <h1 id="login-title">Inicia sesión</h1>
-        <p>Ingresa con una cuenta registrada en Supabase para continuar.</p>
+        <p>Ingresa con tu cuenta para continuar.</p>
         {error && <div className="alert alert--error" role="alert">{error}</div>}
         <form className="form" onSubmit={submit}>
           <label>

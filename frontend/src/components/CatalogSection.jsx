@@ -7,7 +7,7 @@ const catalogSkeletonResources = [
   {
     id: 'skeleton-react',
     title: 'React desde cero',
-    description: 'Componentes, estado, eventos y consumo de servicios REST con un proyecto práctico.',
+    description: 'Componentes, estado, formularios y consumo de servicios en un proyecto guiado.',
     level: 'Inicial',
     duration_hours: 18,
     image_url: '/images/react.svg',
@@ -17,7 +17,7 @@ const catalogSkeletonResources = [
   {
     id: 'skeleton-api',
     title: 'API REST con Node.js',
-    description: 'Diseña una API mantenible con Express, validación, seguridad, autenticación y Supabase.',
+    description: 'Endpoints, validaciones, autenticación y manejo de errores con Express.',
     level: 'Intermedio',
     duration_hours: 24,
     image_url: '/images/node.svg',
@@ -27,7 +27,7 @@ const catalogSkeletonResources = [
   {
     id: 'skeleton-sql',
     title: 'SQL y modelado relacional',
-    description: 'Aprende consultas, relaciones, índices y normalización hasta tercera forma normal.',
+    description: 'Consultas, relaciones, índices y buenas prácticas para diseñar tablas.',
     level: 'Inicial',
     duration_hours: 16,
     image_url: '/images/sql.svg',
@@ -37,7 +37,7 @@ const catalogSkeletonResources = [
   {
     id: 'skeleton-python',
     title: 'Analítica con Python',
-    description: 'Procesa datos, automatiza tareas y crea reportes reproducibles con Python.',
+    description: 'Limpieza de datos, automatización y reportes con scripts reutilizables.',
     level: 'Intermedio',
     duration_hours: 22,
     image_url: '/images/python.svg',
@@ -47,7 +47,7 @@ const catalogSkeletonResources = [
   {
     id: 'skeleton-cloud',
     title: 'Fundamentos de nube',
-    description: 'Comprende redes, almacenamiento, cómputo, observabilidad y despliegue continuo.',
+    description: 'Servicios básicos de cómputo, redes, almacenamiento y despliegue.',
     level: 'Inicial',
     duration_hours: 14,
     image_url: '/images/cloud.svg',
@@ -57,7 +57,7 @@ const catalogSkeletonResources = [
   {
     id: 'skeleton-security',
     title: 'Seguridad para APIs',
-    description: 'Protege endpoints mediante JWT, validación, rate limiting y control de acceso.',
+    description: 'Autenticación, validación de entrada, permisos y límites de uso.',
     level: 'Avanzado',
     duration_hours: 20,
     image_url: '/images/security.svg',
@@ -170,9 +170,9 @@ export default function CatalogSection() {
     <section id="catalogo" className="section section--soft" aria-labelledby="catalog-title">
       <div className="container">
         <div className="section-heading">
-          <span className="eyebrow">Catálogo conectado a la API</span>
-          <h2 id="catalog-title">Elige una ruta y avanza a tu ritmo</h2>
-          <p>Los elementos de esta sección provienen del backend y pueden filtrarse por categoría o búsqueda.</p>
+          <span className="eyebrow">Rutas disponibles</span>
+          <h2 id="catalog-title">Encuentra el siguiente tema para practicar</h2>
+          <p>Filtra por categoría o busca por título para ubicar el recurso que necesitas.</p>
         </div>
 
         <form className="catalog-search" role="search" onSubmit={submitSearch}>

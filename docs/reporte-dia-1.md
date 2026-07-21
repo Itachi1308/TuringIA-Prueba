@@ -8,7 +8,7 @@
 - Maquetación inicial de encabezado, hero, estadísticas y catálogo.
 - Diseño del esquema relacional con tres tablas normalizadas.
 
-## Evidencias sugeridas
+## Evidencias
 
 - Captura del wireframe interpretado.
 - Captura de la página inicial.

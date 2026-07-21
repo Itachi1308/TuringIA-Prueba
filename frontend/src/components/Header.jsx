@@ -13,8 +13,8 @@ export default function Header() {
     <>
       <div className="topbar">
         <div className="container topbar__content">
-          <span>Catálogo técnico administrable</span>
-          <span>React, Express y Supabase</span>
+          <span>Rutas técnicas para equipos</span>
+          <span>Contenido actualizado</span>
         </div>
       </div>
       <header className="site-header">
@@ -32,8 +32,8 @@ export default function Header() {
           </button>
           <nav id="main-navigation" className={`main-nav ${open ? 'main-nav--open' : ''}`} aria-label="Principal">
             <a href="/#catalogo" onClick={closeMenu}>Catálogo</a>
-            <a href="/#beneficios" onClick={closeMenu}>Beneficios</a>
-            <a href="/#criterios" onClick={closeMenu}>Criterios</a>
+            <a href="/#beneficios" onClick={closeMenu}>Rutas</a>
+            <a href="/#criterios" onClick={closeMenu}>Opciones</a>
             {user ? (
               <>
                 <NavLink to="/perfil" onClick={closeMenu}>Mi perfil</NavLink>

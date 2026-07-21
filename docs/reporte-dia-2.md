@@ -9,7 +9,7 @@
 - Validación, middlewares, rate limiting y manejo centralizado de errores.
 - Consumo de API desde React con filtros y carga progresiva.
 
-## Evidencias sugeridas
+## Evidencias
 
 - Pruebas en Postman.
 - Login exitoso y token generado.

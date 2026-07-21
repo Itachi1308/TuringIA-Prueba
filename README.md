@@ -1,6 +1,6 @@
-# NexoTech - Catálogo full-stack
+# NexoTech - Catálogo técnico
 
-NexoTech es una aplicación full-stack para consultar y administrar rutas técnicas. El frontend está desarrollado con React y Vite; el backend utiliza Node.js y Express; la autenticación, los usuarios y la base PostgreSQL se administran en Supabase.
+NexoTech permite consultar rutas técnicas, filtrar recursos y mantener el contenido desde un panel privado. El frontend usa React y Vite; el backend está hecho con Node.js y Express; la autenticación y la base PostgreSQL viven en Supabase.
 
 ## Enlaces de entrega
 
@@ -30,7 +30,7 @@ turing-nexotech/
 
 ## Arquitectura
 
-- **Frontend:** React, Vite, React Router y Boneyard para skeleton screens del catálogo.
+- **Frontend:** React, Vite, React Router y Boneyard para los estados de carga del catálogo.
 - **Backend:** Express, validación, rate limiting, CORS y Helmet.
 - **Base de datos:** Supabase PostgreSQL.
 - **Autenticación:** Supabase Auth con usuarios `admin` y `user`.

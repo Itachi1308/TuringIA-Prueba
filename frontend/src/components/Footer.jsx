@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container site-footer__grid">
         <div>
           <Logo />
-          <p>Catálogo de rutas técnicas conectado a una API REST, con autenticación y administración de contenido.</p>
+          <p>Catálogo de rutas técnicas para consultar, organizar y mantener recursos de aprendizaje.</p>
         </div>
         <div>
           <h2 className="site-footer__title">Explora</h2>
@@ -16,9 +16,9 @@ export default function Footer() {
         </div>
         <div>
           <h2 className="site-footer__title">Proyecto</h2>
-          <span>React + Vite</span>
-          <span>Express + Supabase</span>
-          <span>JWT + roles</span>
+          <span>Catálogo</span>
+          <span>Panel interno</span>
+          <span>Acceso privado</span>
         </div>
       </div>
       <div className="container site-footer__bottom">

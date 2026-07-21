@@ -27,15 +27,15 @@ const categories = [
 ];
 
 const resources = [
-  ['React desde cero', 'Componentes, estado, eventos y consumo de servicios REST con un proyecto práctico.', 'Inicial', 18, '/images/react.svg', true, 'desarrollo-web'],
-  ['API REST con Node.js', 'Diseña una API mantenible con Express, validación, seguridad, autenticación y Supabase.', 'Intermedio', 24, '/images/node.svg', true, 'desarrollo-web'],
-  ['SQL y modelado relacional', 'Aprende consultas, relaciones, índices y normalización hasta tercera forma normal.', 'Inicial', 16, '/images/sql.svg', false, 'datos'],
-  ['Analítica con Python', 'Procesa datos, automatiza tareas y crea reportes reproducibles con Python.', 'Intermedio', 22, '/images/python.svg', false, 'datos'],
-  ['Fundamentos de nube', 'Comprende redes, almacenamiento, cómputo, observabilidad y despliegue continuo.', 'Inicial', 14, '/images/cloud.svg', false, 'cloud'],
-  ['Seguridad para APIs', 'Protege endpoints mediante JWT, validación, rate limiting y control de acceso.', 'Avanzado', 20, '/images/security.svg', true, 'ciberseguridad'],
-  ['TypeScript aplicado', 'Tipado práctico para interfaces, servicios y aplicaciones React escalables.', 'Intermedio', 15, '/images/typescript.svg', false, 'desarrollo-web'],
-  ['Docker para equipos', 'Contenedores, imágenes, redes y flujos reproducibles para desarrollo y producción.', 'Intermedio', 12, '/images/docker.svg', false, 'cloud'],
-  ['Dashboards efectivos', 'Convierte datos en indicadores claros mediante diseño visual y narrativa analítica.', 'Inicial', 10, '/images/dashboard.svg', false, 'datos'],
+  ['React desde cero', 'Componentes, estado, formularios y consumo de servicios en un proyecto guiado.', 'Inicial', 18, '/images/react.svg', true, 'desarrollo-web'],
+  ['API REST con Node.js', 'Endpoints, validaciones, autenticación y manejo de errores con Express.', 'Intermedio', 24, '/images/node.svg', true, 'desarrollo-web'],
+  ['SQL y modelado relacional', 'Consultas, relaciones, índices y buenas prácticas para diseñar tablas.', 'Inicial', 16, '/images/sql.svg', false, 'datos'],
+  ['Analítica con Python', 'Limpieza de datos, automatización y reportes con scripts reutilizables.', 'Intermedio', 22, '/images/python.svg', false, 'datos'],
+  ['Fundamentos de nube', 'Servicios básicos de cómputo, redes, almacenamiento y despliegue.', 'Inicial', 14, '/images/cloud.svg', false, 'cloud'],
+  ['Seguridad para APIs', 'Autenticación, validación de entrada, permisos y límites de uso.', 'Avanzado', 20, '/images/security.svg', true, 'ciberseguridad'],
+  ['TypeScript aplicado', 'Tipos, interfaces y patrones prácticos para aplicaciones React.', 'Intermedio', 15, '/images/typescript.svg', false, 'desarrollo-web'],
+  ['Docker para equipos', 'Imágenes, contenedores, redes y flujos reproducibles de trabajo.', 'Intermedio', 12, '/images/docker.svg', false, 'cloud'],
+  ['Dashboards efectivos', 'Indicadores claros, visualización y criterios para tomar decisiones.', 'Inicial', 10, '/images/dashboard.svg', false, 'datos'],
 ];
 
 const ensureUser = async ({ email, password, name, role }) => {

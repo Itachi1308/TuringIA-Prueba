@@ -7,8 +7,8 @@
   "variable": [
     { "key": "baseUrl", "value": "https://turing-ia-prueba-backend.vercel.app/api" },
     { "key": "token", "value": "" },
-    { "key": "resourceId", "value": "1" },
-    { "key": "categoryId", "value": "1" }
+    { "key": "resourceId", "value": "35" },
+    { "key": "categoryId", "value": "19" }
   ],
   "item": [
     {
@@ -64,7 +64,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Inteligencia artificial\",\n  \"description\": \"Modelos y automatización.\"\n}"
+              "raw": "{\n  \"name\": \"DevOps\",\n  \"description\": \"Procesos de despliegue, monitoreo y trabajo colaborativo.\"\n}"
             },
             "url": "{{baseUrl}}/categories"
           }
@@ -79,7 +79,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"IA aplicada\",\n  \"description\": \"Modelos y automatización aplicada.\"\n}"
+              "raw": "{\n  \"name\": \"DevOps aplicado\",\n  \"description\": \"Flujos de despliegue y mantenimiento de aplicaciones.\"\n}"
             },
             "url": "{{baseUrl}}/categories/{{categoryId}}"
           }
@@ -115,7 +115,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"title\": \"Introducción a IA\",\n  \"description\": \"Ruta práctica para comprender modelos y casos de uso de inteligencia artificial.\",\n  \"level\": \"Inicial\",\n  \"durationHours\": 12,\n  \"imageUrl\": \"/images/python.svg\",\n  \"featured\": true,\n  \"categoryId\": 1\n}"
+              "raw": "{\n  \"title\": \"Git para equipos\",\n  \"description\": \"Flujo de ramas, revisiones y buenas prácticas para colaborar en proyectos.\",\n  \"level\": \"Inicial\",\n  \"durationHours\": 12,\n  \"imageUrl\": \"/images/docker.svg\",\n  \"featured\": true,\n  \"categoryId\": 19\n}"
             },
             "url": "{{baseUrl}}/resources"
           }
@@ -130,7 +130,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"title\": \"Introducción a IA actualizada\",\n  \"description\": \"Ruta actualizada para comprender modelos y casos de uso de inteligencia artificial.\",\n  \"level\": \"Intermedio\",\n  \"durationHours\": 14,\n  \"imageUrl\": \"/images/python.svg\",\n  \"featured\": true,\n  \"categoryId\": 1\n}"
+              "raw": "{\n  \"title\": \"Git para equipos actualizado\",\n  \"description\": \"Flujo de ramas, revisiones de código y buenas prácticas de colaboración.\",\n  \"level\": \"Intermedio\",\n  \"durationHours\": 14,\n  \"imageUrl\": \"/images/docker.svg\",\n  \"featured\": true,\n  \"categoryId\": 19\n}"
             },
             "url": "{{baseUrl}}/resources/{{resourceId}}"
           }
